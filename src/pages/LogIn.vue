@@ -30,6 +30,12 @@
             </div>
           </div>
           <div class="field">
+            <p>
+              If you don't have an account
+              <router-link to="/sign-up">Sign Up</router-link>.
+            </p>
+          </div>
+          <div class="field">
             <button
               class="button"
               type="button"
@@ -82,11 +88,11 @@ export default {
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then(data => {
+            this.$store.state.currentUser = firebase.auth().currentUser;
             this.logInProcess = false;
             this.$store.state.loggedIn = true;
             this.resetForm();
             this.$router.push("/");
-            console.log(data);
           })
           .catch(error => {
             const errorCode = error.code;

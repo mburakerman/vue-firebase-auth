@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         loader: true,
-        loggedIn: false
+        loggedIn: false,
+        currentUser: null
     }
 });

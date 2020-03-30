@@ -43,6 +43,12 @@
               @click="signUp"
             >Sign Up</button>
           </div>
+          <div class="field">
+            <div
+              v-if="this.errorText.length > 1"
+              class="notification is-danger is-light"
+            >{{this.errorText}}</div>
+          </div>
         </form>
       </div>
     </div>
@@ -50,6 +56,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import firebase from "firebase";
 
 export default {
@@ -62,7 +69,8 @@ export default {
       password: "",
       validEmail: false,
       validPassword: false,
-      signUpProcess: false
+      signUpProcess: false,
+      errorText: ""
     };
   },
   methods: {
@@ -83,17 +91,30 @@ export default {
           .then(data => {
             console.log(data);
             this.signUpProcess = false;
-            // go login page after sign up
             this.$router.push("/");
+            this.$swal(
+              "Your account successfully created!",
+              "Now you are logged in.",
+              "success"
+            );
           })
           .catch(function(error) {
             const errorCode = error.code;
             const errorMessage = error.message;
             const email = error.email;
             const credential = error.credential;
-            console.log(errorCode, errorMessage, email, credential);
+
+            if (errorCode.length > 1) {
+              this.signUpProcess = false;
+              this.errorText = errorMessage;
+              this.resetForm();
+            }
           });
       }
+    },
+    resetForm() {
+      this.email = "";
+      this.password = "";
     }
   }
 };

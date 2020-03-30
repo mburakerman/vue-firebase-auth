@@ -27,11 +27,23 @@
 
           <div class="navbar-end">
             <div class="navbar-item">
+              <p class v-if="this.$store.state.currentUser">{{this.$store.state.currentUser.email}}</p>
+            </div>
+            <div class="navbar-item">
               <div class="buttons">
-                <router-link class="button is-primary" to="/sign-up">
+                <router-link
+                  v-if="!this.$store.state.currentUser"
+                  class="button is-primary"
+                  to="/sign-up"
+                >
                   <strong>Sign up</strong>
                 </router-link>
-                <router-link class="button is-light" to="/log-in">Log in</router-link>
+                <router-link
+                  v-if="!this.$store.state.currentUser"
+                  class="button is-light"
+                  to="/log-in"
+                >Log in</router-link>
+
                 <button
                   v-if="this.$store.state.loggedIn"
                   class="button is-light"
@@ -53,16 +65,38 @@ export default {
   name: "Header",
   methods: {
     logOut() {
-      let wantLogOut = confirm("Do you want to log out?");
-      if (!wantLogOut) return;
-      firebase
-        .auth()
-        .signOut()
-        .then(data => {
-          console.log(data);
-          this.$store.state.loggedIn = false;
-          this.$router.push("/log-in");
-        });
+      this.$swal({
+        title: "Do you want to log out?",
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Yes",
+        closeOnConfirm: true
+      }).then(res => {
+        if (typeof res.value == "undefined") {
+          return;
+        }
+
+        firebase
+          .auth()
+          .signOut()
+          .then(data => {
+            this.$store.state.currentUser = null;
+            this.$store.state.loggedIn = false;
+            this.$router.push("/log-in");
+          });
+      });
+
+      //let wantLogOut = confirm("Do you want to log out?");
+      //if (!wantLogOut) return;
+      /* */
+    }
+  },
+  created() {
+    if (firebase.auth().currentUser) {
+      this.$store.state.loggedIn = true;
+      this.$store.state.currentUser = firebase.auth().currentUser;
     }
   }
 };
