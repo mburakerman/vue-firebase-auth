@@ -66,8 +66,8 @@ export default {
       email: "",
       emailRegex: /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/,
       password: "",
-      validEmail: false,
-      validPassword: false,
+      validEmail: true,
+      validPassword: true,
       logInProcess: false,
       errorText: ""
     };
