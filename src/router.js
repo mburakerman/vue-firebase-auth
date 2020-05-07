@@ -37,6 +37,8 @@ const router = new VueRouter({
     linkExactActiveClass: "active" // active class for *exact* links.
 });
 
+
+
 // AUTH CHECK
 router.beforeEach((to, from, next) => {
     // check for requiresAuth guard

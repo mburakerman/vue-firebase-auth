@@ -23,4 +23,10 @@ export default {
 body {
   color: #333;
 }
+
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 920px !important;
+  }
+}
 </style>

@@ -1,67 +1,73 @@
 <template>
-  <section id="signUp">
-    <div class="container">
-      <div class="column is-two-fifths">
-        <h1 class="title">Sign Up</h1>
-        <form>
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-              <input
-                v-model="email"
-                type="email"
-                class="input"
-                :class="{'is-danger' : !validEmail }"
-                placeholder="Email"
-              />
+  <div>
+    <Hero></Hero>
+    <section id="signUp">
+      <div class="container">
+        <div class="column is-two-fifths">
+          <h2 class="title is-3">Sign Up</h2>
+          <form>
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input
+                  v-model="email"
+                  type="email"
+                  class="input"
+                  :class="{'is-danger' : !validEmail }"
+                  placeholder="Email"
+                />
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <label class="label">Password</label>
-            <div class="control">
-              <input
-                v-model="password"
-                type="password"
-                class="input"
-                :class="{'is-danger' : !validPassword}"
-                placeholder="Password"
-              />
-              <small>Password should be at least 6 characters.</small>
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input
+                  v-model="password"
+                  type="password"
+                  class="input"
+                  :class="{'is-danger' : !validPassword}"
+                  placeholder="Password"
+                />
+                <small>Password should be at least 6 characters.</small>
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <p>
-              If you have an account
-              <router-link to="/log-in">Log In</router-link>.
-            </p>
-          </div>
-          <div class="field">
-            <button
-              class="button"
-              :class="{ 'is-loading': signUpProcess}"
-              type="button"
-              @click="signUp"
-            >Sign Up</button>
-          </div>
-          <div class="field">
-            <div
-              v-if="this.errorText.length > 1"
-              class="notification is-danger is-light"
-            >{{this.errorText}}</div>
-          </div>
-        </form>
+            <div class="field">
+              <p>
+                If you have an account
+                <router-link to="/log-in">Log In</router-link>.
+              </p>
+            </div>
+            <div class="field">
+              <button
+                class="button"
+                :class="{ 'is-loading': signUpProcess}"
+                type="button"
+                @click="signUp"
+              >Sign Up</button>
+            </div>
+            <div class="field">
+              <div
+                v-if="this.errorText.length > 1"
+                class="notification is-danger is-light"
+              >{{this.errorText}}</div>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
 /* eslint-disable */
 import firebase from "firebase";
+import Hero from "../components/Hero";
 
 export default {
   name: "SignUp",
-  components: {},
+  components: {
+    Hero
+  },
   data: function() {
     return {
       email: "",
@@ -89,7 +95,6 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(data => {
-            console.log(data);
             this.signUpProcess = false;
             this.$router.push("/");
             this.$swal(
@@ -119,3 +124,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#signUp {
+  padding: 2em 0;
+}
+</style>

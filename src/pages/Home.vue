@@ -2,11 +2,11 @@
   <section id="home">
     <div class="container">
       <div class="column">
-        <h2 class="title is-3">What did you learn today?</h2>
+        <h1 class="title">What did you learn today?</h1>
         <p class="text">
           <small>{{currentDate}}</small>
         </p>
-        <textarea class="textarea" rows="5" placeholder="Type here"></textarea>
+        <textarea class="textarea" rows="6" placeholder="Type here"></textarea>
       </div>
     </div>
   </section>
@@ -22,3 +22,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#home .textarea {
+  margin-bottom: 5em;
+}
+</style>

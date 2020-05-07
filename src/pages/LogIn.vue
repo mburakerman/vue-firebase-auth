@@ -1,66 +1,73 @@
 
 <template>
-  <section id="logIn">
-    <div class="container">
-      <div class="column is-two-fifths">
-        <h1 class="title">Log In</h1>
-        <form>
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-              <input
-                v-model="email"
-                type="email"
-                class="input"
-                :class="{'is-danger' : !validEmail }"
-                placeholder="Email"
-              />
+  <div>
+    <Hero></Hero>
+    <section id="logIn">
+      <div class="container">
+        <div class="column is-two-fifths">
+          <h2 class="title is-3">Log In</h2>
+          <form>
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input
+                  v-model="email"
+                  type="email"
+                  class="input"
+                  :class="{'is-danger' : !validEmail }"
+                  placeholder="Email"
+                />
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <label class="label">Password</label>
-            <div class="control">
-              <input
-                v-model="password"
-                type="password"
-                class="input"
-                :class="{'is-danger' : !validPassword}"
-                placeholder="Password"
-              />
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input
+                  v-model="password"
+                  type="password"
+                  class="input"
+                  :class="{'is-danger' : !validPassword}"
+                  placeholder="Password"
+                />
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <p>
-              If you don't have an account
-              <router-link to="/sign-up">Sign Up</router-link>.
-            </p>
-          </div>
-          <div class="field">
-            <button
-              class="button"
-              type="button"
-              :class="{ 'is-loading': logInProcess}"
-              @click="logIn"
-            >Log In</button>
-          </div>
-          <div class="field">
-            <div
-              v-if="this.errorText.length > 1"
-              class="notification is-danger is-light"
-            >{{this.errorText}}</div>
-          </div>
-        </form>
+            <div class="field">
+              <p>
+                If you don't have an account
+                <router-link to="/sign-up">Sign Up</router-link>.
+              </p>
+            </div>
+            <div class="field">
+              <button
+                class="button"
+                type="button"
+                :class="{ 'is-loading': logInProcess}"
+                @click="logIn"
+              >Log In</button>
+            </div>
+            <div class="field">
+              <div
+                v-if="this.errorText.length > 1"
+                class="notification is-danger is-light"
+              >{{this.errorText}}</div>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
 /* eslint-disable */
 import firebase from "firebase";
+import Hero from "../components/Hero";
 
 export default {
   name: "LogIn",
+  components: {
+    Hero
+  },
   data: function() {
     return {
       email: "",
@@ -115,3 +122,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#logIn {
+  padding: 2em 0;
+}
+</style>
